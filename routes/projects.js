@@ -5,7 +5,7 @@ const Project = require('../models/Project');
 // GET: education/
 routes.get('/', async (req, res) => {
     try {
-        const project = await Project.find();
+        const project = await Project.find({ user_key: req.body.user_key });
         res.json(project);
     } catch (err) {
         res.json({message: err});
@@ -26,7 +26,7 @@ routes.post('/', async (req, res) => {
 // DELETE: project/:id
 routes.delete('/:id', async(req, res) => {
     try {
-        const deletedProject = await Project.remove({_id: req.params.id});
+        const deletedProject = await Project.remove({_id: req.params.id, user_key: req.body.user_key});
         res.json(deletedProject);
     } catch (err) {
         res.json({message: "Unexpected error. Please try again."});
@@ -40,7 +40,7 @@ routes.patch('/:id', async (req, res) => {
 
     try {
         const updatedProject = await Project.updateOne(
-            { _id: req.params.id },
+            { _id: req.params.id, user_key: req.body.user_key },
             { $set: { [fieldName]: value } }
         )
 
