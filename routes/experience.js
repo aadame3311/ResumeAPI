@@ -19,7 +19,6 @@ routes.post('/', async (req, res) => {
         const savedExperience = await experience.save();
         res.json(savedExperience);
     } catch (err) {
-        console.log(err.message);
         res.json({message: "Unexpected error. Please try again."});
     }
 });
