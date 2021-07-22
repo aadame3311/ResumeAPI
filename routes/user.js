@@ -11,6 +11,7 @@ routes.get('/', async (req, res) => {
         
         let user = new User({
             user_key: user_key,
+            email: req.body.email,
             active: 1
         });
 

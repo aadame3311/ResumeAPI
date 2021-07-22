@@ -5,7 +5,7 @@ const Education = require('../models/Education');
 // GET: education/
 routes.get('/', async (req, res) => {
     try {
-        const education = await Education.find();
+        const education = await Education.find({user_key: req.body.user_key});
         res.json(education);
     } catch (err) {
         res.json({message: "Unexpected error. Please try again."});
@@ -26,7 +26,7 @@ routes.post('/', async (req, res) => {
 // DELETE: education/:id
 routes.delete('/:id', async(req, res) => {
     try {
-        const deletedEducation = await Education.remove({_id: req.params.id});
+        const deletedEducation = await Education.remove({_id: req.params.id, user_key: req.body.user_key});
         res.json(deletedEducation);
     } catch (err) {
         res.json({message: "Unexpected error. Please try again."});
@@ -40,7 +40,7 @@ routes.patch('/:id', async (req, res) => {
 
     try {
         const updatedEducation = await Education.updateOne(
-            { _id: req.params.id },
+            { _id: req.params.id, user_key: req.body.user_key },
             { $set: { [fieldName]: value } }
         )
 

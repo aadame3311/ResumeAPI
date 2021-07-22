@@ -57,7 +57,7 @@ routes.patch('/:id', async (req, res) => {
 
     try {
         const updatedExperience = await Experience.updateOne(
-            { _id: req.params.id },
+            { _id: req.params.id, user_key: req.body.user_key },
             { $set: { [fieldName]: value } }
         )
 
@@ -65,6 +65,7 @@ routes.patch('/:id', async (req, res) => {
     } catch (err) {
         res.json({message: "Unexpected error. Please try again."});
     }
+
 });
 
 module.exports = routes;
