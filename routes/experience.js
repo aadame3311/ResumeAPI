@@ -1,39 +1,57 @@
 const express = require('express');
 const routes = express.Router();
-const Experience = require('../models/Experience');
+const Experience = require('../models/Experience.js');
 
-// experience/
+// GET: experience/
 routes.get('/', async (req, res) => {
     try {
-        const experience = await Experience.find();
+        const experience = await Experience.find({ user_key: req.body.user_key });
         res.json(experience);
     } catch (err) {
-        res.json({message: err});
+        res.json({message: "Unexpected error. Please try again."});
     }
 });
 
-// experience/
+// POST: experience/
 routes.post('/', async (req, res) => {
     const experience = new Experience(req.body);
     try {
         const savedExperience = await experience.save();
         res.json(savedExperience);
     } catch (err) {
-        res.json({message: err});
+        console.log(err.message);
+        res.json({message: "Unexpected error. Please try again."});
     }
 });
 
-// experience/:id
+/**
+ * DELETE: experience/:id
+ * deletes experience by id for user with user_key
+ */ 
 routes.delete('/:id', async(req, res) => {
     try {
-        const deletedExperience = await Experience.remove({_id: req.params.id});
+        const deletedExperience = await Experience.remove({ _id: req.params.id, user_key: req.body.user_key});
         res.json(deletedExperience);
     } catch (err) {
-        res.json({message: err});
+        res.json({message: "Unexpected error. Please try again."});
     }
 });
 
-// experience/:id
+// DELETE: experience/
+/**
+ * DELETE: experience/
+ * deletes all experience data for user with user_key
+ */
+routes.delete('/', async (req, res) => {
+    try {
+        await Experience.deleteMany({user_key: req.body.user_key});
+        res.json({message: "Success."});
+    } catch (err) {
+        res.json({message: "Unexpected error. Please try again."});
+    }
+})
+
+// PATCH: experience/:id
 routes.patch('/:id', async (req, res) => {
     const fieldName = req.body.field;
     const value = req.body.value;
@@ -46,7 +64,7 @@ routes.patch('/:id', async (req, res) => {
 
         res.json(updatedExperience);
     } catch (err) {
-        res.json({message: err})
+        res.json({message: "Unexpected error. Please try again."});
     }
 });
 

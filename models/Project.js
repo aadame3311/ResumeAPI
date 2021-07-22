@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
 const ProjectSchema = new mongoose.Schema({
+    user_key: {
+        type: String, 
+        default: '',
+        required: false
+    },
     name: {
         type: String, 
         required: true
     },
-    projectUrl: {
+    project_url: {
         type: String, 
         required: false
     },
@@ -13,19 +18,19 @@ const ProjectSchema = new mongoose.Schema({
         type: String, 
         required: false  
     },
-    startMonth: {
+    start_month: {
         type: String,
         required: true
     },
-    startYear: {
+    start_year: {
         type: String,
         required: true
     },
-    endMonth: {
+    end_month: {
         type: String,
         required: false
     },
-    endYear: {
+    end_year: {
         type: String,
         required: false
     },

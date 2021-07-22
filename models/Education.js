@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const EducationSchema = new mongoose.Schema({
+    user_key: {
+        type: String,
+        default: '',
+        required: false
+    },
     name: {
         type: String, 
         required: true

@@ -1,7 +1,12 @@
 const mongoose = require('mongoose');
 
 const ExperienceSchema = new mongoose.Schema({
-    companyName: {
+    user_key: {
+        type: String, 
+        default: '',
+        required: false
+    },
+    company_name: {
         type: String, 
         required: true
     },
@@ -21,23 +26,23 @@ const ExperienceSchema = new mongoose.Schema({
         type: String, 
         default: "United States"
     },
-    jobDescription: {
+    job_description: {
         type: String, 
         required: false
     },
-    startMonth: {
+    start_month: {
         type: String, 
         required: true
     },
-    startYear: {
+    start_year: {
         type: String, 
         required: true
     },
-    endMonth: {
+    end_month: {
         type: String,
         required: false
     },
-    endYear: {
+    end_year: {
         type: String, 
         required: false
     }
